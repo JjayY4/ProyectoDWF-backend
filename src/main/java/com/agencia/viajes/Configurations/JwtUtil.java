@@ -1,23 +1,24 @@
 package com.agencia.viajes.Configurations;
+
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret:mySecretKeyMustBeAtLeast256BitsLongForHS512}")
-    private String secret;
+    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
     @Value("${jwt.expiration:86400000}")
     private Long expiration;
 
-    private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+    private SecretKey getSigningKey() {
+        return SECRET_KEY;
     }
+
     public String generateToken(String email, String rol) {
         return Jwts.builder()
                 .setSubject(email)
@@ -35,6 +36,7 @@ public class JwtUtil {
     public String extractRol(String token) {
         return (String) getClaims(token).get("rol");
     }
+
     public boolean isTokenValid(String token) {
         try {
             return getClaims(token).getExpiration().after(new Date());
