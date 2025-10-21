@@ -39,6 +39,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/airlines/{id}").permitAll()
                         .requestMatchers("/api/airlines/upload-image").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/airlines/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/airplanes/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/crew/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
