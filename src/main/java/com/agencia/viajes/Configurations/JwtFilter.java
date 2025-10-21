@@ -1,4 +1,5 @@
 package com.agencia.viajes.Configurations;
+
 import com.agencia.viajes.Repository.UserRepository;
 import com.agencia.viajes.Configurations.JwtUtil;
 import io.jsonwebtoken.Claims;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
 
@@ -39,19 +42,27 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         String email = jwtUtil.extractEmail(token);
-        UserDetails user = (UserDetails) userRepository.findByEmail(email).orElse(null);
-        if (user == null) {
+
+        com.agencia.viajes.Model.User usuario = userRepository.findByEmail(email).orElse(null);
+        if (usuario == null) {
             filterChain.doFilter(request, response);
             return;
         }
+
+        UserDetails user = User.withUsername(usuario.getEmail())
+                .password(usuario.getPassword())
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRol())))
+                .build();
 
         UsernamePasswordAuthenticationToken auth =
                 new UsernamePasswordAuthenticationToken(
                         user,
                         null,
-                        List.of(new SimpleGrantedAuthority("ROLE_" + jwtUtil.extractRol(token)))
+                        user.getAuthorities()
                 );
+
         SecurityContextHolder.getContext().setAuthentication(auth);
         filterChain.doFilter(request, response);
     }
