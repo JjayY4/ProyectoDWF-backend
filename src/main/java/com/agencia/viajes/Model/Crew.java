@@ -1,11 +1,11 @@
 package com.agencia.viajes.Model;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "crew")
 @Data
-
 public class Crew {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,7 @@ public class Crew {
     @ManyToOne
     @JoinColumn(name = "id_airline", nullable = false)
     private Airline airline;
+
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
@@ -23,6 +24,7 @@ public class Crew {
 
     @Column(name = "post", length = 30, nullable = false)
     private String post;
+
     @Column(name = "license_number", length = 20, nullable = false, unique = true)
     private String licenseNumber;
 

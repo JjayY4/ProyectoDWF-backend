@@ -1,6 +1,7 @@
 package com.agencia.viajes.Controller;
 
 import com.agencia.viajes.DTO.CrewDTO;
+import com.agencia.viajes.DTO.CrewResponseDTO;
 import com.agencia.viajes.Model.Crew;
 import com.agencia.viajes.Service.CrewService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,14 @@ public class CrewController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Crew> createCrew(@RequestBody CrewDTO dto) {
-        return ResponseEntity.ok(crewService.saveCrew(dto));
+        Crew created = crewService.saveCrew(dto);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Crew>> getAllCrew() {
-        return ResponseEntity.ok(crewService.getAllCrew());
+    public ResponseEntity<List<CrewResponseDTO>> getAllCrew() {
+        return ResponseEntity.ok(crewService.getAllCrewDTO());
     }
 
     @DeleteMapping("/{id}")

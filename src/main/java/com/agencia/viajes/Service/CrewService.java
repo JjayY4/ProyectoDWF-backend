@@ -1,6 +1,7 @@
 package com.agencia.viajes.Service;
 
 import com.agencia.viajes.DTO.CrewDTO;
+import com.agencia.viajes.DTO.CrewResponseDTO;
 import com.agencia.viajes.Model.Crew;
 import com.agencia.viajes.Model.Airline;
 import com.agencia.viajes.Repository.CrewRepository;
@@ -28,6 +29,22 @@ public class CrewService {
         crew.setLicenseNumber(dto.getLicenseNumber());
 
         return crewRepository.save(crew);
+    }
+
+    public List<CrewResponseDTO> getAllCrewDTO() {
+        return crewRepository.findAll()
+                .stream()
+                .map(c -> {
+                    CrewResponseDTO dto = new CrewResponseDTO();
+                    dto.setIdCrewMember(c.getIdCrewMember());
+                    dto.setName(c.getName());
+                    dto.setNickname(c.getNickname());
+                    dto.setPost(c.getPost());
+                    dto.setLicenseNumber(c.getLicenseNumber());
+                    dto.setAirlineName(c.getAirline().getName());
+                    return dto;
+                })
+                .toList();
     }
 
     public List<Crew> getAllCrew() {
