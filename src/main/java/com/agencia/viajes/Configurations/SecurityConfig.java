@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/airlines/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/airplanes/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/api/crew/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/flights/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
