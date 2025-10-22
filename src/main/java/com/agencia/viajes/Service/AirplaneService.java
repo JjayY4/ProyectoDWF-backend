@@ -1,6 +1,7 @@
 package com.agencia.viajes.Service;
 
 import com.agencia.viajes.DTO.AirplaneDTO;
+import com.agencia.viajes.DTO.AirplaneResponseDTO;
 import com.agencia.viajes.Model.Airplane;
 import com.agencia.viajes.Model.Airline;
 import com.agencia.viajes.Repository.AirplaneRepository;
@@ -30,8 +31,21 @@ public class AirplaneService {
         return airplaneRepository.save(airplane);
     }
 
-    public List<Airplane> getAllAirplanes() {
-        return airplaneRepository.findAll();
+
+    public List<AirplaneResponseDTO> getAllAirplanesDTO() {
+        return airplaneRepository.findAll()
+                .stream()
+                .map(a -> {
+                    AirplaneResponseDTO dto = new AirplaneResponseDTO();
+                    dto.setIdAirplane(a.getIdAirplane());
+                    dto.setModel(a.getModel());
+                    dto.setType(a.getType());
+                    dto.setTotalCapacity(a.getTotalCapacity());
+                    dto.setDescription(a.getDescription());
+                    dto.setAirlineName(a.getAirline().getName());
+                    return dto;
+                })
+                .toList();
     }
 
     public void deleteAirplane(Integer id) {

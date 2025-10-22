@@ -25,8 +25,8 @@ public class Scale {
     @Column(name = "country", length = 50, nullable = false)
     private String country;
 
-    @Column(name = "order", nullable = false)
-    private Integer order;
+    @Column(name = "step", nullable = false)
+    private Integer step;
 
     @Column(name = "duration", nullable = false)
     private LocalTime duration;

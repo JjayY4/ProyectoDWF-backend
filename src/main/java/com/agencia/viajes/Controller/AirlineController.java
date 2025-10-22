@@ -27,23 +27,23 @@ public class AirlineController {
     private final AirlineService airlineService;
     @Autowired
     private Cloudinary cloudinary;
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Airline> createAirline(@RequestBody AirlineDTO airlineDTO) {
         Airline airline = new Airline();
-        airline.setName(airlineDTO.getName());
-        airline.setImageUrl(airlineDTO.getImageUrl());
-        airline.setDescription(airlineDTO.getDescription());
-        airline.setIataCode(airlineDTO.getIataCode());
+        airline.setName(airlineDTO.name());
+        airline.setImageUrl(airlineDTO.imageUrl());
+        airline.setDescription(airlineDTO.description());
+        airline.setIataCode(airlineDTO.iataCode());
 
         Airline savedAirline = airlineService.saveAirline(airline);
         return ResponseEntity.ok(savedAirline);
     }
 
     @GetMapping
-    public ResponseEntity<List<Airline>> getAllAirlines() {
-        List<Airline> airlines = airlineService.getAllAirlines();
-        return ResponseEntity.ok(airlines);
+    public ResponseEntity<List<AirlineDTO>> getAllAirlines() {
+        return ResponseEntity.ok(airlineService.getAllAirlinesDTO());
     }
 
     @GetMapping("/{id}")
@@ -51,14 +51,15 @@ public class AirlineController {
         Airline airline = airlineService.getAirlineById(id);
         return ResponseEntity.ok(airline);
     }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Airline> updateAirline(@PathVariable Integer id, @RequestBody AirlineDTO airlineDTO) {
         Airline airlineDetails = new Airline();
-        airlineDetails.setName(airlineDTO.getName());
-        airlineDetails.setImageUrl(airlineDTO.getImageUrl());
-        airlineDetails.setDescription(airlineDTO.getDescription());
-        airlineDetails.setIataCode(airlineDTO.getIataCode());
+        airlineDetails.setName(airlineDTO.name());
+        airlineDetails.setImageUrl(airlineDTO.imageUrl());
+        airlineDetails.setDescription(airlineDTO.description());
+        airlineDetails.setIataCode(airlineDTO.iataCode());
 
         Airline updatedAirline = airlineService.updateAirline(id, airlineDetails);
         return ResponseEntity.ok(updatedAirline);
@@ -79,7 +80,6 @@ public class AirlineController {
         System.out.println("Archivo: " + file.getOriginalFilename() + " - Tamaño: " + file.getSize() + " - Tipo: " + file.getContentType());
 
         try {
-            // Validaciones
             if (file.isEmpty()) {
                 System.out.println("ERROR: Archivo vacío");
                 return ResponseEntity.badRequest().body("Archivo vacío");
@@ -122,6 +122,4 @@ public class AirlineController {
             return ResponseEntity.status(500).body("Error del servidor: " + e.getMessage());
         }
     }
-
-
 }

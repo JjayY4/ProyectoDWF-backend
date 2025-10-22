@@ -1,5 +1,6 @@
 package com.agencia.viajes.Service;
 
+import com.agencia.viajes.DTO.AirlineDTO;
 import com.agencia.viajes.Model.Airline;
 import com.agencia.viajes.Repository.AirlineRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,18 @@ public class AirlineService {
 
     public List<Airline> getAllAirlines() {
         return airlineRepository.findAll();
+    }
+
+    public List<AirlineDTO> getAllAirlinesDTO() {
+        return getAllAirlines()
+                .stream()
+                .map(a -> new AirlineDTO(
+                        a.getIdAirline(),
+                        a.getName(),
+                        a.getDescription(),
+                        a.getIataCode(),
+                        a.getImageUrl()))
+                .toList();
     }
 
     public Airline getAirlineById(Integer id) {

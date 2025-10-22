@@ -18,7 +18,7 @@ public class Airline {
     private String name;
     @Column(name = "image_url", columnDefinition = "TEXT")
     private String imageUrl;
-    @Column(name = "description", length = 2, nullable = false)
+    @Column(name = "description", length = 500, nullable = false)
     private String description;
 
     @Column(name = "iata_code", columnDefinition = "TEXT")

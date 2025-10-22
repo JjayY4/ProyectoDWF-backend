@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ScaleRepository extends JpaRepository<Scale, Integer> {
-    List<Scale> findByFlightOrderByOrder(Flight flight);
+    List<Scale> findByFlightOrderByStep(Flight flight);
 }

@@ -1,6 +1,7 @@
 package com.agencia.viajes.Controller;
 
 import com.agencia.viajes.DTO.AirplaneDTO;
+import com.agencia.viajes.DTO.AirplaneResponseDTO;
 import com.agencia.viajes.Model.Airplane;
 import com.agencia.viajes.Service.AirplaneService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class AirplaneController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Airplane>> getAllAirplanes() {
-        return ResponseEntity.ok(airplaneService.getAllAirplanes());
+    public ResponseEntity<List<AirplaneResponseDTO>> getAllAirplanes() {
+        return ResponseEntity.ok(airplaneService.getAllAirplanesDTO());
     }
 
     @DeleteMapping("/{id}")
