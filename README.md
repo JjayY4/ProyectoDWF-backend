@@ -15,3 +15,16 @@ The system is designed to handle all core processes related to **airline operati
 
 This API provides endpoints to support the **complete ticket booking workflow**, from searching flights to confirming reservations and managing payments.
 
+The database structure used by this API is available in the following link:  
+🔗 [View Database Diagram on Google Drive](https://drive.google.com/file/d/1pVxuUmkEZD9bx64FL7_r_PFC33Hpzo_Y/view?usp=sharing)
+
+It illustrates the relationships between key entities such as:
+- Airlines  
+- Flights  
+- Routes  
+- Airplanes  
+- Crew  
+- Passengers  
+- Reserves  
+- Payments
+
