@@ -12,3 +12,6 @@ The system is designed to handle all core processes related to **airline operati
 - Reservation, payment, and cancellation handling  
 - Complaint management  
 - Basic statistics generation (e.g., number of reservations, cancellations, etc.)
+
+This API provides endpoints to support the **complete ticket booking workflow**, from searching flights to confirming reservations and managing payments.
+
