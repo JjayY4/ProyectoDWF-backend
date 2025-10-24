@@ -28,3 +28,12 @@ It illustrates the relationships between key entities such as:
 - Reserves  
 - Payments
 
+Technologyes used
+
+| **Backend** | Typescript, Spring Boot (Java 17+) |
+| **Frontend** | Typescript, React (tsx) & TailwindCSS |
+| **Database** | PostgreSQL |
+| **ORM** | Hibernate / JPA |
+| **Build Tool** | Maven |
+| **API Testing** | Postman |
+
